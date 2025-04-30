@@ -1,15 +1,11 @@
 import React from 'react';
 
-interface Todo {
-    id: number | string;
-    text: string;
-    completed: boolean;
-}
+import { Todo } from '../interfaces';
 
 interface Props {
     todo: Todo;
-    onToggle: (id: number | string) => void;
-    onDelete: (id: number | string) => void;
+    onToggle: (id: string | number) => void;
+    onDelete: (id: string | number) => void;
 }
 
 const TodoItem: React.FunctionComponent<Props> = ({ todo, onToggle, onDelete }) => {

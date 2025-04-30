@@ -1,22 +1,17 @@
 import React from 'react';
-import TodoItem from './TodoItem.tsx'; // Импортируем типизированный компонент TodoItem
-
-// Интерфейс для структуры to-do
-interface Todo {
-  id: number | string;
-  text: string;
-  completed: boolean;
-}
+import TodoItem from './TodoItem'; // Импортируем типизированный компонент TodoItem
+import { Todo } from '../interfaces';
 
 // Интерфейс для props компонента
 interface Props {
   todos: Todo[];
-  onToggle: (id: number | string) => void;
-  onDelete: (id: number | string) => void;
+  onToggle: (id: string | number) => void;
+  onDelete: (id: string | number) => void;
 }
 
 // Компонент TodoList
-const TodoList: React.FunctionComponent<Props> = ({ todos, onToggle, onDelete }) => {
+const TodoList: React.FunctionComponent<Props> = ({ todos = [], onToggle, onDelete }) => {
+
   if (todos.length === 0) {
     return <div data-testid="empty-list">No todos found</div>;
   }
