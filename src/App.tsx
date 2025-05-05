@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import AddTodo from '@/components/AddTodo';
-import TodoList from '@/components/TodoList';
-import Filter from '@/components/Filter';
-import { useTodos } from '@/hooks/useTodos';
+import AddTodo from './components/AddTodo';
+import TodoList from './components/TodoList';
+import Filter from './components/Filter';
+import { useTodos } from './hooks/useTodos';
 import '@/App.css';
 
 function App() {

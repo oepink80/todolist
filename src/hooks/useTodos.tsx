@@ -12,8 +12,8 @@ interface Todo {
 export function useTodos(): {
   todos: Todo[],
   addTodo: (text: string) => Promise<void>,
-  toggleTodo: (id: number | string) => Promise<void>,
-  deleteTodo: (id: number | string) => Promise<void>,
+  toggleTodo: (id: string| number ) => Promise<void>,
+  deleteTodo: (id: string | number ) => Promise<void>,
   loading: boolean,
   error?: Error | null
 } {
@@ -28,7 +28,7 @@ export function useTodos(): {
         const data = await getTodos();
         setTodos(data); // Предполагается, что API возвращает массив объектов Todo
       } catch (err) {
-        setError(err);
+        setError(err as Error);
       } finally {
         setLoading(false);
       }
@@ -43,12 +43,12 @@ export function useTodos(): {
       const newTodo = await apiAddTodo(text); // Возвращает объект Todo
       setTodos(prevTodos => [...prevTodos, newTodo]); // Добавляем новую запись в конец списка
     } catch (err) {
-      setError(err);
+      setError(err as Error);
     }
   };
 
   // Переключение статуса задачи (завершенность)
-  const toggleTodo = async (id: number | string) => {
+  const toggleTodo = async (id: string | number) => {
     try {
       const todoToUpdate = todos.find(todo => todo.id === id)!; // Найти нужный todo
       const updatedTodo = await updateTodo(id, {
@@ -62,17 +62,17 @@ export function useTodos(): {
       ); // Обновляем конкретный todo
     } catch (err) {
       console.log(err);
-      setError(err);
+      setError(err as Error);
     }
   };
 
   // Удаление задачи
-  const deleteTodo = async (id: number | string) => {
+  const deleteTodo = async (id: string| number) => {
     try {
       await apiDeleteTodo(id); // Отправляем запрос на удаление
       setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id)); // Фильтруем удалённый todo
     } catch (err) {
-      setError(err);
+      setError(err as Error);
     }
   };
 
