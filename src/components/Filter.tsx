@@ -1,34 +1,26 @@
+// components/Filter.tsx
 import React from 'react';
 
-// Интерфейс для свойств компонента
 interface Props {
-    currentFilter: string;
-    onFilterChange: (filter: string) => void;
+    currentFilter: 'all' | 'active' | 'completed';
+    onFilterChange: (filter: 'all' | 'active' | 'completed') => void;
 }
 
-// Массив возможных фильтров
-const FILTERS: readonly string[] = ['all', 'active', 'completed'] as const;
-
-// Компонент Filter
-const Filter: React.FunctionComponent<Props> = ({ currentFilter, onFilterChange }) => {
+function Filter({ currentFilter, onFilterChange }: Props) {
     return (
-        <div className="filter" data-testid="filter">
-            {FILTERS.map((filter) => (
-                <button
-                    key={filter}
-                    onClick={() => {
-                        if (currentFilter !== filter) {
-                            onFilterChange(filter); // Вызываем обработчик только при смене фильтра
-                        }
-                    }}
-                    className={`${currentFilter === filter ? 'active' : ''}`}
-                    data-testid={`filter-${filter}`}
-                >
-                    {filter}
-                </button>
-            ))}
+        <div>
+            <label htmlFor="filter-select">Filter:</label>
+            <select
+                id="filter-select"
+                value={currentFilter}
+                onChange={(event) => onFilterChange(event.target.value as 'all' | 'active' | 'completed')}
+            >
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+            </select>
         </div>
     );
-};
+}
 
 export default Filter;
