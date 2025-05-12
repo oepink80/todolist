@@ -1,8 +1,8 @@
-// components/Login.tsx
 import { useAuth } from '@/context/AuthContext';
 
 function Login() {
     const { login } = useAuth();
+
     return (
         <div className="login-form">
             <h2>Please Log In</h2>
