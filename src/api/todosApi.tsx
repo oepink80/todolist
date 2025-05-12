@@ -16,6 +16,11 @@ const simulateNetworkDelay = () =>
 
 export const getTodos = async (): Promise<TodoItem[]> => {
   await simulateNetworkDelay();
+  // const response = await fetch('/todos'); // отправляем GET-запрос на /todos
+  // if (!response.ok) throw new Error(`Failed to load todos: ${response.status}`);
+  // console.log('fetching...');
+  // console.log(response);
+  // return await response.json(); // парсим JSON-ответ
   return [...todos];
 };
 
@@ -36,7 +41,7 @@ interface UpdateData {
 }
 
 export const updateTodo = async (
-    id: number,
+    id: string | number,
     updates: UpdateData
 ): Promise<TodoItem> => {
   await simulateNetworkDelay();
@@ -46,7 +51,7 @@ export const updateTodo = async (
   return todos[index];
 };
 
-export const deleteTodo = async (id: number): Promise<void> => {
+export const deleteTodo = async (id: string | number): Promise<void> => {
   await simulateNetworkDelay();
   todos = todos.filter(todo => todo.id !== id);
 };
